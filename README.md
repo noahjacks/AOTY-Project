@@ -25,4 +25,13 @@ There are four graphs that are made processing my Album Data
    By plotting the score of an album by when I rated said album I should be able to see whether
    over my year and a half of album rating I reviewed albums on average more negatively or positively
    over time.
-3. Album Rating 
+   
+3. Album Rating based on the year of release
+   By plotting my rating of albums against the date that an album came out I should be able to determine
+   which decades or eras of music I prefer on average. I should also be able to answer the age old          question. Is new music truly worse than older music?
+   
+4. Average Rating of Albums Released each Year
+   Out of all of the years of music, which year contained the music I liked the most on average?
+   Which decade do I dislike/not rate enough?
+
+I will be running statistical tests to determine some, if any, of the trends that I find are statistically significant, or if I am making things up
