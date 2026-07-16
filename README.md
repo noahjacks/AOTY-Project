@@ -56,8 +56,6 @@ your-repo/
 └── README.md
 ```
 
-(Note AOTY_Analysis.py is a older version of the webapp left here for documentation purposes it is not used in this project)
-
 ## How to Run
 
 1. **Clone the repository** and make sure `app.py`, `requirements.txt`, and `AOTY_Ratings.csv` are all in the same folder:
