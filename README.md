@@ -9,7 +9,7 @@ https://www.albumoftheyear.org/user/-raven/
 
 In this project, I've taken my own CSV file of scores after a year and a half of rating albums and processed the data to discover trends about my listening and rating habits, using a variety of statistical tests.
 
-**Note:** As I listen to and review more albums (which is frequently) I will try to update the csv file in the code to reflect the changes. As of writing I have rated 174 albums.
+**Note:** As I listen to and review more albums (which is frequently) I will try to update the CSV file in the code to reflect the changes. As of writing I have rated 174 albums.
 
 ## Graphs & Tests Included
 
