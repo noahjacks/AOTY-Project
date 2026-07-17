@@ -169,7 +169,7 @@ elif view == "Ratings by Album Type (Box Plot)":
     data_by_type = [df[df["Type"] == t]["Rating"] for t in types]
 
     fig, ax = plt.subplots()
-    ax.boxplot(data_by_type, labels=types)
+    ax.boxplot(data_by_type, tick_labels=types)
     ax.axhline(average_score, color="red", linestyle="--", linewidth=2,
                label=f"Overall Average: {average_score:.2f}")
     ax.set_title("Ratings by Album Type")
