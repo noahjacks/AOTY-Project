@@ -7,9 +7,9 @@ https://www.albumoftheyear.org/user/-raven/
 
 [Album of the Year](https://www.albumoftheyear.org) (AOTY) is an online album rating and discussion forum created in 2008. AOTY allows users to individually write reviews and score albums; these scores are compiled for users to show to friends and for general record-keeping. AOTY also allows these scores to be downloaded as a CSV file so the data can be processed. Albums are rated on a scale of 0–100.
 
-In this project, I've taken my own CSV file of scores after a year and a half of rating albums and processed the data to discover trends about my listening and rating habits, using a variety of statistical tests.
+In this project, I took my own CSV file of scores after a year and a half of rating albums and processed the data to discover trends about my listening and rating habits using a variety of statistical tests.
 
-**Note:** As I listen to and review more albums (which is frequently) I will try to update the CSV file in the code to reflect the changes. As of writing I have rated 174 albums.
+**Note:** As I listen to and review more albums (which is frequently), I will try to update the CSV file in the project to reflect the changes. As of writing, I have rated 174 albums.
 
 ## Graphs & Tests Included
 
@@ -51,7 +51,7 @@ The dashboard reads from `AOTY_Ratings.csv`, which contains the following column
 
 ## Project Structure
 
-```
+```text
 your-repo/
 ├── app.py
 ├── requirements.txt
@@ -62,22 +62,33 @@ your-repo/
 ## How to Run
 
 1. **Clone the repository** and make sure `app.py`, `requirements.txt`, and `AOTY_Ratings.csv` are all in the same folder:
-   ```
+   ```bash
    git clone https://github.com/yourusername/your-repo.git
    cd your-repo
    ```
 
-2. **Install the required packages:**
+2. **Create and activate a virtual environment:**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
    ```
+
+3. **Install the required packages:**
+   ```bash
+   pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
-3. **Launch the dashboard:**
-   ```
+4. **Launch the dashboard:**
+   ```bash
    streamlit run app.py
    ```
 
-4. Your browser should open automatically to a local address (usually `http://localhost:8501`). Use the sidebar to switch between graphs and statistical tests.
+5. Your browser should open automatically to a local address (usually `http://localhost:8501`). Use the sidebar to switch between graphs and statistical tests.
+
+## Notes for CI / Headless Runs
+
+The analysis script saves plot images as PNG files so it can run in GitHub Actions or other headless environments.
 
 ## Statistical Approach
 
