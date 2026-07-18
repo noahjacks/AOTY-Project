@@ -74,6 +74,13 @@ if view == "Distribution of Ratings":
              f"**Skewness:** {df['Rating'].skew():.2f} &nbsp;&nbsp; "
              f"**Kurtosis:** {df['Rating'].kurt():.2f}")
 
+    st.subheader("Album Count per Bin")
+
+    bin_labels = [f"{int(edges[i])}-{int(edges[i+1]) - 1}" for i in range(len(edges) - 1)]
+    bin_counts_df = pd.DataFrame({"Rating Range": bin_labels, "Number of Albums": counts.astype(int)})
+
+    st.dataframe(bin_counts_df, hide_index=True, use_container_width=True)
+
     with st.expander("ℹ️ How this works"):
         st.markdown(
             """
@@ -95,6 +102,10 @@ it does not prove the data actually is normal (see the Shapiro-Wilk test for tha
 - **Kurtosis:** measures how "peaked" or "flat" the distribution is compared to
   a normal curve. Positive means more values clustered near the mean with a
   sharper peak; negative means a flatter, more spread-out shape.
+
+The **bar chart and table below** show the exact same bin counts as the
+histogram bars above, just presented as plain numbers per range — useful if
+you want to read off exact counts rather than estimate bar heights by eye.
 """
         )
 
@@ -248,7 +259,7 @@ elif view == "Ratings by Album Type (Box Plot)":
     data_by_type = [df[df["Type"] == t]["Rating"] for t in types]
 
     fig, ax = plt.subplots()
-    ax.boxplot(data_by_type, tick_labels=types)
+    ax.boxplot(data_by_type, labels=types)
     ax.axhline(average_score, color="red", linestyle="--", linewidth=2,
                label=f"Overall Average: {average_score:.2f}")
     ax.set_title("Ratings by Album Type")
