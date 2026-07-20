@@ -205,6 +205,15 @@ dates) and the fitted line is converted back to real dates for display.
   whether the slope is likely a real drift in your habits or just noise.
 """
         )
+    with st.expander("ℹ️ Analysis"):
+        st.markdown(
+            """
+Since the p-value is below 0.05, we can say with confidence that my rating habits have not changed significantly over time.
+I think that this is an odd result because I have noticed that when I started rating albums, I tended to give out a score of 80
+as my 'default' score, and now I tend to give out a score of 70 as my 'default' score. This is likely due to the fact that I have been rating albums for a long time, and my taste in music has changed over time. 
+This was not represented in the data, my theory for this result is that I rated several albums very low scores at the beginning which helped bring the average score down to close to the mean.
+"""
+        )
 
 # ----------------------------------------------------------------------------
 # 4. Average Rating by Year
