@@ -33,7 +33,6 @@ view = st.sidebar.radio(
         "Rating vs. Date Rated",
         "Average Rating by Year",
         "Ratings by Album Type (Box Plot)",
-        "Normality Test (Shapiro-Wilk)",
         "ANOVA: Rating by Type",
     ],
 )
@@ -81,6 +80,23 @@ if view == "Distribution of Ratings":
 
     st.dataframe(bin_counts_df, hide_index=True, use_container_width=True)
 
+    st.subheader("Is This Actually Normal?")
+    shapiro_stat, shapiro_p = shapiro(df["Rating"])
+    st.write(f"**Shapiro-Wilk statistic:** {shapiro_stat:.4f} &nbsp;&nbsp; "
+             f"**p-value:** {shapiro_p:.4g}")
+
+    if shapiro_p < 0.05:
+        st.warning(
+            "The p-value is below 0.05, so we reject the idea that ratings are "
+            "normally distributed. The normal curve above is a useful visual "
+            "reference, but not a statistically accurate model of your data."
+        )
+    else:
+        st.success(
+            "The p-value is above 0.05, so we fail to reject normality — your "
+            "ratings are plausibly consistent with a normal distribution."
+        )
+
     with st.expander("ℹ️ How this works"):
         st.markdown(
             """
@@ -91,7 +107,8 @@ The **black curve** is a normal distribution (bell curve) fitted to the data's
 own mean (μ) and standard deviation (σ), then scaled up so its height matches
 the histogram's raw counts instead of a 0–1 probability density. It's a visual
 reference for "what a perfectly normal version of this data would look like" —
-it does not prove the data actually is normal (see the Shapiro-Wilk test for that).
+it does not by itself prove the data actually is normal, which is what the
+Shapiro-Wilk test below the bin table checks.
 
 - **Mean:** the average rating.
 - **Standard deviation:** how spread out the ratings are around the mean —
@@ -103,9 +120,27 @@ it does not prove the data actually is normal (see the Shapiro-Wilk test for tha
   a normal curve. Positive means more values clustered near the mean with a
   sharper peak; negative means a flatter, more spread-out shape.
 
-The **bar chart and table below** show the exact same bin counts as the
-histogram bars above, just presented as plain numbers per range — useful if
-you want to read off exact counts rather than estimate bar heights by eye.
+The **bin table above** shows the exact same counts as the histogram bars,
+just as plain numbers per range — useful if you want to read off exact
+counts rather than estimate bar heights by eye.
+
+**The Shapiro-Wilk test** checks whether the ratings plausibly came from a
+normal distribution. It works by sorting your ratings and comparing them
+against the values you'd expect to see, in that same sorted order, if the
+data had been drawn from a perfect normal distribution with your data's mean
+and standard deviation. The result is a statistic **W** (between 0 and 1,
+where closer to 1 means a better match to normal).
+
+The **p-value** attached to W tests the hypothesis "this data came from a
+normal distribution":
+- **p < 0.05:** reject that hypothesis — the data is *not* well described as
+  normal (common for bounded, real-world scores like ratings, which often
+  cluster around certain numbers or skew toward one end).
+- **p ≥ 0.05:** not enough evidence to say it isn't normal.
+
+This is a check on whether the smooth curve drawn over the histogram is a
+statistically meaningful model of your ratings, or just a nice-looking
+reference shape.
 """
         )
 
@@ -305,52 +340,7 @@ ratings can look dramatically different just from having less data to average.
         )
 
 # ----------------------------------------------------------------------------
-# 6. Shapiro-Wilk Normality Test
-# ----------------------------------------------------------------------------
-elif view == "Normality Test (Shapiro-Wilk)":
-    st.header("Is My Rating Distribution Normal?")
-
-    stat, p_value = shapiro(df["Rating"])
-    st.write(f"**Shapiro-Wilk statistic:** {stat:.4f}")
-    st.write(f"**p-value:** {p_value:.4g}")
-
-    if p_value < 0.05:
-        st.warning(
-            "The p-value is below 0.05, so we reject the idea that ratings are "
-            "normally distributed. The normal curve on the histogram is a useful "
-            "visual reference, but not a statistically accurate model of your data."
-        )
-    else:
-        st.success(
-            "The p-value is above 0.05, so we fail to reject normality — your "
-            "ratings are plausibly consistent with a normal distribution."
-        )
-
-    with st.expander("ℹ️ How this works"):
-        st.markdown(
-            """
-The **Shapiro-Wilk test** checks whether a dataset plausibly came from a
-normal (bell curve) distribution. It works by sorting your ratings and
-comparing them against the values you'd expect to see, in that same sorted
-order, if the data had been drawn from a perfect normal distribution with
-your data's mean and standard deviation. The result is a statistic **W**
-(between 0 and 1, where closer to 1 means a better match to normal).
-
-The **p-value** attached to W tests the hypothesis "this data came from a
-normal distribution":
-- **p < 0.05:** reject that hypothesis — the data is *not* well described as
-  normal (common for bounded, real-world scores like ratings, which often
-  cluster around certain numbers or skew toward one end).
-- **p ≥ 0.05:** not enough evidence to say it isn't normal.
-
-This is a check on whether the smooth curve drawn over the histogram is a
-statistically meaningful model of your ratings, or just a nice-looking
-reference shape.
-"""
-        )
-
-# ----------------------------------------------------------------------------
-# 7. ANOVA across Album Types
+# 6. ANOVA across Album Types
 # ----------------------------------------------------------------------------
 elif view == "ANOVA: Rating by Type":
     st.header("Do Ratings Differ Significantly by Album Type?")
