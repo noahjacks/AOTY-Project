@@ -22,19 +22,13 @@ This project includes an interactive dashboard with the following views:
    Plots the score of an album against the date I rated it, with a least-squares line of best fit, to see whether I've reviewed albums more negatively or positively on average over time.
 
 3. **Album Rating Based on Year of Release**
-   Plots my rating of albums against the year an album came out, with a line of best fit, to help answer the age-old question: is new music truly worse than older music?
+   Plots my rating of albums against the year an album came out, with a line of best fit, to help answer the age-old question: is new music truly worse than older music? Includes a Shapiro-Wilk Normality Test which tests whether my ratings are statistically consistent with a normal distribution, rather than just assuming so from the histogram shape.
 
 4. **Average Rating of Albums Released Each Year**
    Shows which years of music I liked the most (and least) on average, with a trend line across years.
 
 5. **Ratings by Album Type (Box Plot)**
-   Compares the spread of ratings across EPs, LPs, Live albums, and Unreleased albums.
-
-6. **Normality Test (Shapiro-Wilk)**
-   Tests whether my ratings are statistically consistent with a normal distribution, rather than just assuming so from the histogram shape.
-
-7. **ANOVA: Rating by Type**
-   Tests whether the average rating actually differs significantly between album types, or whether any differences are just chance.
+   Compares the spread of ratings across EPs, LPs, Live albums, and Unreleased albums. Includes an ANOVA: Rating by Type test which tests whether the average rating actually differs significantly between album types, or whether any differences are just chance.
 
 ## Data
 
