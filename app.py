@@ -33,7 +33,6 @@ view = st.sidebar.radio(
         "Rating vs. Date Rated",
         "Average Rating by Year",
         "Ratings by Album Type (Box Plot)",
-        "ANOVA: Rating by Type",
     ],
 )
 
@@ -299,7 +298,7 @@ album I've rated."
         )
 
 # ----------------------------------------------------------------------------
-# 5. Box Plot by Album Type
+# 5. Box Plot by Album Type + ANOVA
 # ----------------------------------------------------------------------------
 elif view == "Ratings by Album Type (Box Plot)":
     st.header("Ratings by Album Type")
@@ -320,37 +319,11 @@ elif view == "Ratings by Album Type (Box Plot)":
     st.write("**Counts by type:**")
     st.dataframe(df["Type"].value_counts().rename("Count"))
 
-    with st.expander("ℹ️ How this works"):
-        st.markdown(
-            """
-A box plot summarizes each album type's ratings using five numbers:
+    st.subheader("Do Ratings Differ Significantly by Type?")
 
-- **Median** (the line inside the box): the middle rating when all values for
-  that type are sorted — less affected by outliers than the mean.
-- **Box edges (Q1 and Q3):** the 25th and 75th percentiles — the middle 50%
-  of ratings for that type fall inside the box.
-- **Whiskers:** extend to the typical range of the data beyond the box.
-- **Points beyond the whiskers:** individual outlier ratings.
-
-This is more informative than just comparing averages, since two types can
-have the same average rating but very different spreads — one consistent,
-one all over the place. Check the counts table too: a type with very few
-ratings can look dramatically different just from having less data to average.
-"""
-        )
-
-# ----------------------------------------------------------------------------
-# 6. ANOVA across Album Types
-# ----------------------------------------------------------------------------
-elif view == "ANOVA: Rating by Type":
-    st.header("Do Ratings Differ Significantly by Album Type?")
-
-    types = df["Type"].unique()
     groups = [df[df["Type"] == t]["Rating"] for t in types]
-
     stat, p_value = f_oneway(*groups)
-    st.write(f"**F-statistic:** {stat:.4f}")
-    st.write(f"**p-value:** {p_value:.4g}")
+    st.write(f"**F-statistic:** {stat:.4f} &nbsp;&nbsp; **p-value:** {p_value:.4g}")
 
     if p_value < 0.05:
         st.success(
@@ -369,16 +342,31 @@ elif view == "ANOVA: Rating by Type":
     with st.expander("ℹ️ How this works"):
         st.markdown(
             """
-**One-way ANOVA** (Analysis of Variance) tests whether the average ratings
-of two or more groups (here: EP, LP, Live, Unreleased) are genuinely
-different, or whether the differences you see could just be random chance.
+A box plot summarizes each album type's ratings using five numbers:
+
+- **Median** (the line inside the box): the middle rating when all values for
+  that type are sorted — less affected by outliers than the mean.
+- **Box edges (Q1 and Q3):** the 25th and 75th percentiles — the middle 50%
+  of ratings for that type fall inside the box.
+- **Whiskers:** extend to the typical range of the data beyond the box.
+- **Points beyond the whiskers:** individual outlier ratings.
+
+This is more informative than just comparing averages, since two types can
+have the same average rating but very different spreads — one consistent,
+one all over the place. Check the counts table too: a type with very few
+ratings can look dramatically different just from having less data to average.
+
+**One-way ANOVA** (Analysis of Variance) goes a step further than the box
+plot's visual comparison — it tests whether the average ratings of two or
+more groups (here: EP, LP, Live, Unreleased) are genuinely different, or
+whether the differences you see could just be random chance.
 
 It works by comparing two kinds of variance:
 - **Between-group variance:** how spread out the group *averages* are from
   the overall average (e.g., is the EP average far from the LP average?).
 - **Within-group variance:** how spread out individual ratings are *within*
   each type (e.g., how scattered are individual LP ratings around the LP
-  average?).
+  average?) — this is the same spread the box plot's boxes and whiskers show.
 
 ```
 F = (variance between group averages) / (variance within groups)
