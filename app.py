@@ -15,7 +15,7 @@ st.title("🎵 Album of the Year — Ratings Dashboard")
 # ----------------------------------------------------------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("AOTY_Ratings.csv")
+    df = pd.read_csv("AOTY_Ratings_2.csv")
     df["Date Rated"] = pd.to_datetime(df["Date Rated"])
     return df
 
