@@ -75,6 +75,36 @@ your-repo/
    ```
 5. Your browser should open automatically to a local address (usually `http://localhost:8501`). Use the sidebar to switch between graphs and statistical tests.
 
+## Troubleshooting & Permanent Setup
+
+If your virtual environment becomes unusable (shebangs in `./.venv/bin/` point to a missing Python), it's usually because the venv was created at one absolute path and the project was moved or synced (e.g., via iCloud). For a durable setup, follow these recommendations:
+
+- **Create the venv locally and don't move it.** Run from the project root:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+- **If you move the project, recreate the venv** (don't try to reuse the old `.venv`).
+
+- **Avoid placing the project in cloud-synced folders** (iCloud/Dropbox) when the venv is inside the project; syncing can change paths and break the venv. If you must use cloud storage, keep the venv outside the synced folder or recreate it after moving.
+
+- **Alternative: use `pipx` for CLI tools** like Streamlit so you can run them globally without relying on a local venv:
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+pipx install streamlit
+streamlit run app.py
+```
+
+- **Use a Python version manager** (e.g., `pyenv`) if you work across multiple projects with different Python versions — that reduces environment friction.
+
+- **Add `.venv` to `.gitignore`** so the venv isn't checked into Git accidentally.
+
+With these practices you'll avoid the "No such file or directory" errors from broken shebangs in `./.venv/bin/*`.
+
 ## Statistical Approach
 
 I'm running statistical tests (linear regression significance, Shapiro-Wilk, one-way ANOVA) to determine whether any of the trends I find in my rating habits are statistically significant, or if I'm just making things up.
