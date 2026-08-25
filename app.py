@@ -249,20 +249,6 @@ dates) and the fitted line is converted back to real dates for display.
   whether the slope is likely a real drift in your habits or just noise.
 """
         )
-    with st.expander("ℹ️ Analysis"):
-        st.markdown(
-            """
-The linear regression on rating vs. date rated does not show a statistically significant trend (p = [0.3604], R² = [0.0049]). In plain terms: based on this test alone, there isn't strong evidence that my average rating has drifted up or down over the time I've been using AOTY.
-
-That said, this doesn't fully match my own impression of how my rating habits have evolved. When I started, my "default" score for an album I found unremarkable was around 80; more recently, that default has felt closer to 70. A shift in a typical/default score isn't necessarily the same thing as a shift in the overall average — it's possible for my go-to score to drift down while the mean stays roughly flat, if other ratings (particularly high or low outliers) are offsetting that shift.
-
-One theory: a cluster of unusually low scores early in my rating history may have pulled the overall average down close to where it's stayed ever since, masking a "default score" decline that a straight-line trend wouldn't necessarily pick up. I haven't confirmed this yet — it's a hypothesis based on memory, not something the current test verifies. Next steps to check this directly:
-
-Look at my earliest ratings chronologically to see if there really is a cluster of unusually low scores.
-Compare the mode (most common score) between the first and second halves of my rating history, to see if the "default" genuinely shifted from ~80 to ~70.
-Plot a rolling average over time, rather than relying only on a single straight-line fit, since a non-linear pattern (e.g., an early dip that recovers) could look "flat" in a linear regression even if a real shift happened.
-"""
-        )
 
 # ----------------------------------------------------------------------------
 # 4. Average Rating by Year
