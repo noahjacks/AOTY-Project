@@ -2,7 +2,7 @@
 
 [Album of the Year](https://www.albumoftheyear.org) (AOTY) is an online album rating and discussion forum created in 2008. AOTY allows users to individually write reviews and score albums; these scores are compiled for users to show to friends and for general record-keeping. AOTY also allows these scores to be downloaded as a CSV file so the data can be processed. Albums are rated on a scale of 0–100.
 
-In this project users are able to upload their own CSV files to the streamlit application, a series of statistical tests described in detail below will be conducted. If a user does not have an AOTY account the application will default to my data. As of writing I have rating 187 albums.
+In this project users are able to upload their own CSV files to a Streamlit application. A series of statistical tests described in detail below will be conducted. If a user does not have an AOTY account the application will default to my data. As of writing I have rating 187 albums.
 
 ## Graphs & Tests Included
 
