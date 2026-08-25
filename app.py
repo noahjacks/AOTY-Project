@@ -14,12 +14,22 @@ st.title("🎵 Album of the Year — Ratings Dashboard")
 # Load data
 # ----------------------------------------------------------------------------
 @st.cache_data
-def load_data():
-    df = pd.read_csv("AOTY_Ratings.csv")
+def load_data(file):
+    df = pd.read_csv(file)
     df["Date Rated"] = pd.to_datetime(df["Date Rated"])
     return df
 
-df = load_data()
+uploaded_file = st.file_uploader("Upload your AOTY ratings CSV to get started", type="csv")
+
+if uploaded_file is None:
+    st.info("Upload a CSV exported from albumoftheyear.org to view your ratings dashboard.")
+    if st.button("Continue without uploading, view Noah's rating data"):
+        st.session_state.use_default_data = True
+
+if uploaded_file is None and not st.session_state.get("use_default_data"):
+    st.stop()
+
+df = load_data(uploaded_file if uploaded_file is not None else "AOTY_Ratings.csv")
 average_score = df["Rating"].mean()
 
 # ----------------------------------------------------------------------------
