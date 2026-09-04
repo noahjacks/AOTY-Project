@@ -179,7 +179,7 @@ elif view == "Rating vs. Year Released":
     if p_value < 0.05:
         st.success("This trend is statistically significant (p < 0.05).")
     else:
-        st.info("This trend is NOT statistically significant (p ≥ 0.05) — could be noise.")
+        st.info("This trend is NOT statistically significant (p ≥ 0.05) it could be noise.")
 
     with st.expander("ℹ️ How this works"):
         st.markdown(
@@ -194,7 +194,7 @@ no guessing or trial-and-error involved.
 - **Slope:** how much the average rating changes per year of release. A
   slope near 0 means release year barely matters to your ratings.
 - **R² (R-squared):** the percentage of variation in Rating explained by
-  Year. A low R² (e.g. 0.05) means year explains very little — most of the
+  Year. A low R² (e.g. 0.05) means year explains very little, most of the
   scatter in your ratings comes from something other than release year.
 - **p-value:** tests whether the true slope could plausibly be zero (i.e.,
   no real relationship) and what you're seeing is just random scatter.
@@ -241,10 +241,10 @@ the x-axis is the date you rated each album (converted to a plain number of
 days via `toordinal()`, since regression math needs numbers, not calendar
 dates) and the fitted line is converted back to real dates for display.
 
-- **Slope:** the average change in rating per **day** that passes — a tiny
+- **Slope:** the average change in rating per **day** that passes. A tiny
   number is expected here since ratings rarely swing much day to day, so it's
   more useful to think of it scaled up (e.g., slope × 365 ≈ change per year).
-- **R² and p-value:** interpreted the same way as before — R² is how much of
+- **R² and p-value:** interpreted the same way as before, R² is how much of
   the rating variation this date trend explains, and the p-value tells you
   whether the slope is likely a real drift in your habits or just noise.
 """
@@ -281,7 +281,7 @@ elif view == "Average Rating by Year":
         st.markdown(
             """
 This groups every album by its release year and takes the **mean rating**
-within each year — so each point is an average of however many albums you
+within each year, so each point is an average of however many albums you
 rated from that year, not an individual album.
 
 The green best-fit line is the same least squares regression as before, just
